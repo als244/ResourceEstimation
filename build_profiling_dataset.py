@@ -54,4 +54,5 @@ for f in csv_files:
 
 main_df = main_df.sort_values(by=["M", "K", "N"], ignore_index=True)
 
-pickle.dump(main_df, open(PROFILE_DIR + "profiling_df.pickle", "wb"))
+with open(PROFILE_DIR + "profiling_df.pickle", "wb") as out_file:
+	pickle.dump(main_df, out_file)
