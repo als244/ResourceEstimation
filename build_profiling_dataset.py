@@ -15,9 +15,9 @@ for f in csv_files:
 
 	params = f.split(".")[0].split("_")
 
-	m = params[0]
-	k = params[1]
-	n = params[2]
+	m = int(params[0])
+	k = int(params[1])
+	n = int(params[2])
 
 	try:
 		df = pd.read_csv(f, skiprows=4)
