@@ -90,9 +90,6 @@ int main(int argc, char * argv[]){
 	cudaMalloc(&workspace, workspaceBytes);
 
 	float alpha = 1, beta = 0;
-
-	cudaDeviceSynchronize();
-	clock_t t_start = clock();
 	
 	status = cublasLtMatmul(handle,
 							matmulDesc,
@@ -111,12 +108,6 @@ int main(int argc, char * argv[]){
 							workspaceBytes,
 							0);
 	
-	cudaDeviceSynchronize();
-	clock_t t_end = clock();
-
-	double total_t = ((double)(t_end - t_start) / (double) CLOCKS_PER_SEC) * 1000000;
-
-	printf("Matmul GPU Time with m=%d, k=%d, n=%d: %0.6lf u sec\n", m, k, n, total_t);
 	
 	// FREE workspace
 	cudaFree(workspace);
