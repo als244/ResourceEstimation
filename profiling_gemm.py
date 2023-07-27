@@ -17,7 +17,7 @@ EXECUTABLE = "./my_gemm"
 def build_profile_command(m, k, n):
 
 	output_filename = OUTPUT_TRACE_DIR + str(m) + "_" + str(k) + "_" + str(n)
-	profile_command = PROFILE_COMMAND_PREF + output_filename + " " + EXECUTABLE + " " + str(m) + " " + str(k) + " " + str(n) + "> " + output_filename + ".csv"
+	profile_command = PROFILE_COMMAND_PREF + output_filename + " " + EXECUTABLE + " " + str(m) + " " + str(k) + " " + str(n) + " > " + output_filename + ".csv"
 
 	return output_filename, profile_command
 
@@ -35,7 +35,7 @@ def main():
 					continue
 				output_filename, profile_command = build_profile_command(m, k, n)
 				print("Executing command: " + profile_command)
-				subprocess.call(profile_command.split(" "))
+				subprocess.call(profile_command, shell = True)
 
 
 if __name__ == "__main__":
