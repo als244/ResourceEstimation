@@ -30,7 +30,6 @@ def main():
 		for k in dim_list:
 			for n in dim_list:
 				mem_usage = 4 * (m * k + k * n + m * n)
-				print(mem_usage)
 				if (mem_usage > MAX_BYTES_GPU - 2000000000):
 					continue
 				output_filename, profile_command = build_profile_command(m, k, n)
