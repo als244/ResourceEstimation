@@ -70,11 +70,11 @@ int main(int argc, char * argv[]){
 
 
 	cublasLtMatmulPreference_t pref;
-
-	// ALLOW 1 GB of workspace mem...
-	const size_t workspaceBytes = 1000000000;
 	status = cublasLtMatmulPreferenceCreate(&pref);
-	status = cublasLtMatmulPreferenceSetAttribute(pref, CUBLASLT_MATMUL_PREF_MAX_WORKSPACE_BYTES, &workspaceBytes, sizeof(workspaceBytes));
+	// ALLOW 1 GB of workspace mem...
+	//const size_t workspaceBytes = 1000000000;
+	const size_t workspaceBytes = 0;
+	//status = cublasLtMatmulPreferenceSetAttribute(pref, CUBLASLT_MATMUL_PREF_MAX_WORKSPACE_BYTES, &workspaceBytes, sizeof(workspaceBytes));
 
 	int algoCount = 1;
 	int retAlgoCount = 0;
@@ -86,8 +86,9 @@ int main(int argc, char * argv[]){
 
 	cublasLtMatmulAlgo_t algo = heuristicResultsArray.algo;
 
-	void * workspace;
-	cudaMalloc(&workspace, workspaceBytes);
+	//void * workspace;
+	void * workspace = NULL;
+	//cudaMalloc(&workspace, workspaceBytes);
 
 	float alpha = 1, beta = 0;
 	
