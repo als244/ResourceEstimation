@@ -52,7 +52,7 @@ for f in csv_files:
 		continue
 
 
-main_df = main_df.sort_values(by=["M", "K", "N"], ignore_index=True)
+main_df = main_df.sort_values(by=["M", "N", "K"], ignore_index=True)
 
 with open(PROFILE_DIR + "profiling_df.pickle", "wb") as out_file:
 	pickle.dump(main_df, out_file)
