@@ -4,6 +4,7 @@ import subprocess
 import sqlite3
 import pandas as pd
 import numpy as np
+import time
 
 MAX_BYTES_GPU = 24576000000
 
@@ -35,6 +36,7 @@ def main():
 				output_filename, profile_command = build_profile_command(m, k, n)
 				print("Executing command: " + profile_command)
 				subprocess.call(profile_command, shell = True)
+				time.sleep(30)
 
 
 if __name__ == "__main__":

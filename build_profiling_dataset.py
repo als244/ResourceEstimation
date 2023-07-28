@@ -11,6 +11,8 @@ csv_files = sorted([f for f in glob.glob("*.csv")])
 
 main_df = None
 
+error_files = []
+
 for f in csv_files:
 
 	params = f.split(".")[0].split("_")
@@ -20,7 +22,7 @@ for f in csv_files:
 	n = int(params[2])
 
 	try:
-		df = pd.read_csv(f, skiprows=4)
+		df = pd.read_csv(f, skiprows=3)
 	
 
 		## assume name kernel name, block size, grid size for all metrics
@@ -47,6 +49,7 @@ for f in csv_files:
 
 	except Exception as e:
 		print("EXCEPTION for file: " + f)
+		error_files.append(f)
 		print(e)
 		print()
 		continue
@@ -56,3 +59,6 @@ main_df = main_df.sort_values(by=["M", "N", "K"], ignore_index=True)
 
 with open(PROFILE_DIR + "profiling_df.pickle", "wb") as out_file:
 	pickle.dump(main_df, out_file)
+
+with open(PROFILE_DIR + "error_files_list.pickle", "wb") as out_file:
+	pickle.dump(error_files, out_file)
