@@ -57,6 +57,22 @@ for f in csv_files:
 
 main_df = main_df.sort_values(by=["M", "N", "K"], ignore_index=True)
 
+main_df = main_df.loc[:,~main_df.columns.duplicated()].copy()
+main_df = main_df.loc[:, main_df.columns.notna()]
+
+### important columns for now, if we want to cut down on  memory of dataframe could only save these...
+
+# key_cols = ['M', 'K', 'N', 'Duration (nsecond)', 'Compute (SM) Throughput (%)', 'Memory Throughput (%)', 'Memory Throughput (byte/second)', 'DRAM Throughput (%)', 'Mem Busy (%)', 'Max Bandwidth (%)', 'Mem Pipes Busy (%)', 'Theoretical Occupancy (%)', 'Achieved Occupancy (%)', 
+#             'Elapsed Cycles (cycle)', 'SM Active Cycles (cycle)', 'SM: Pipe Tensor Cycles Active (%)',
+#             'Executed Ipc Active (inst/cycle)', 'Executed Ipc Elapsed (inst/cycle)', 'Issue Slots Busy (%)', 'Issued Ipc Active (inst/cycle)', 'SM Busy (%)', 'Tensor (All) (%)', 'ALU (%)', 'FMA (%)', 'FMA (FP16) (%)', 'FP64 (%)', 'FP64 (DMMA) (%)',  
+#             'L1/TEX Cache Throughput (%)', 'L2 Cache Throughput (%)', 'L1/TEX Hit Rate (%)', 'L2 Hit Rate (%)',
+#             'Active Warps Per Scheduler (warp)', 'Eligible Warps Per Scheduler (warp)', 'Theoretical Warps Per Scheduler (warp)', 'GPU Maximum Warps Per Scheduler (warp)', 'Active Warps Per Scheduler (warp)', 'Eligible Warps Per Scheduler (warp)', 'Warp Cycles Per Issued Instruction (cycle)', 'Warp Cycles Per Executed Instruction (cycle)',
+#             'Avg. Executed Instructions Per Scheduler (inst)', 'Executed Instructions (inst)', 'Avg. Issued Instructions Per Scheduler (inst)', 'Issued Instructions (inst)', 'Registers Per Thread (register/thread)', 'Shared Memory Per Block (byte/block)', 'Shared Memory Configuration Size (byte)', 'Driver Shared Memory Per Block (byte/block)', 'Dynamic Shared Memory Per Block (byte/block)', 'Static Shared Memory Per Block (byte/block)', 'Threads (thread)', 'Avg. Threads Executed (thread)', 'Avg. Predicated-On Threads Executed (thread)',
+#             'Theoretical Active Warps per SM (warp)', 'Achieved Active Warps Per SM (warp)',
+#             'L1 Wavefronts Shared Excessive (byte)', 'L2 Theoretical Sectors Global Excessive (byte)', 'Branch Instructions Ratio (%)',
+#             'SM Frequency (cycle/second)', 'DRAM Frequency (cycle/second)', 
+#             'Kernel Name', 'Block Size', 'Grid Size']
+
 with open(PROFILE_DIR + "profiling_df.pickle", "wb") as out_file:
 	pickle.dump(main_df, out_file)
 
