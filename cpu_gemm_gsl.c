@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h>
 #include <gsl/gsl_cblas.h>
 #include <gsl/gsl_math.h>
 
@@ -41,15 +41,15 @@ int main(int argc, char * argv[]){
 	sampleNormal(A, m * k, 0.0, 1.0 / 20.0);
 	sampleNormal(B, k * n, 0.0, 1.0 / 20.0);
 
-	clock_t t;
-    t = clock();
-
-
+	struct timeval  tv1, tv2;
+    gettimeofday(&tv1, NULL);
 	cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 
 					m, n, k, 1.0, A, k, B, n, 
 					0.0, C, n);
     t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
+    gettimeofday(&tv2, NULL);;
+    double time_taken = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+         (double) (tv2.tv_sec - tv1.tv_sec); // in seconds
 
     printf("SGEMM where: m=%d, k=%d, n=%d took --- %f seconds\n", m, k, n, time_taken);
 
