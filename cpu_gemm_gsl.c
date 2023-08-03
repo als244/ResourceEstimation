@@ -52,6 +52,7 @@ int main(int argc, char * argv[]){
          (double) (tv2.tv_sec - tv1.tv_sec); // in seconds
 
     printf("SGEMM where: m=%d, k=%d, n=%d took --- %f seconds\n", m, k, n, time_taken);
+    printf("GFLOPS Proxy: %f\n", 2 * (float) m * (float) k * (float) n / time_taken / 1e9); 
 
     free(A);
     free(B);
