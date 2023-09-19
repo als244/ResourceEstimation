@@ -47,21 +47,21 @@ int main(int argc, char * argv[]){
 	openblas_set_num_threads(num_threads);
 
 	struct timeval  tv1, tv2;
-    gettimeofday(&tv1, NULL);
+    	gettimeofday(&tv1, NULL);
 	cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 
 					m, n, k, 1.0, A, k, B, n, 
 					0.0, C, n);
   	gettimeofday(&tv2, NULL);;
-    double time_taken = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+    	double time_taken = (double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
          (double) (tv2.tv_sec - tv1.tv_sec); // in seconds
 
-    printf("SGEMM where: m=%d, k=%d, n=%d took --- %f seconds\n", m, k, n, time_taken);
-    printf("GFLOPS Proxy: %f\n", 2 * (float) m * (float) k * (float) n / time_taken / 1e9); 
+    	printf("SGEMM where: m=%d, k=%d, n=%d took --- %f seconds\n", m, k, n, time_taken);
+    	printf("GFLOPS Proxy: %f\n", 2 * (float) m * (float) k * (float) n / time_taken / 1e9); 
 
-    free(A);
-    free(B);
-    free(C);
+    	free(A);
+    	free(B);
+    	free(C);
 
-    return 0;
+    	return 0;
 
 }
